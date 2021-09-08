@@ -1,17 +1,64 @@
 // Game constants and variables
 let inputDir = { x:0 , y:0};
-const foodSound = new Audio("../music/food.mp3");
-const gameOverSound = new Audio("../music/gameover.mp3");
-const moveSound = new Audio("../music/move.mp3");
-const musicSound = new Audio("../music/music.mp3");
+const foodSound = new Audio("./music/food.mp3");
+const gameOverSound = new Audio("./music/gameover.mp3");
+const moveSound = new Audio("./music/move.mp3");
+const musicSound = new Audio("./music/music.mp3");
 let score = 0;
+let highScore = 0;
 let speed = 5;
 let lastPaintTime = 0;
 let snakeArr = [ 
     { x:5 , y:13},
 ];
 let food= { x:10, y:7};
-1// Game Functions
+
+// food at random 
+let a = 1;
+let b = 20;
+food = {x: Math.round(a + (b-a)* Math.random()), y: Math.round(a + (b-a)* Math.random())}
+
+// Button functions
+
+function easy(){
+    speed = 7;
+}
+function medium(){
+    speed = 14;
+}
+function hard(){
+    speed = 21;
+}
+function controlup(){
+    if(snakeArr.length > 1 && inputDir.x === 0 && inputDir.y === 1 ){
+        return;
+    }
+    inputDir.x = 0;
+    inputDir.y = -1;
+}
+function controldown(){
+    if(snakeArr.length > 1 && inputDir.x === 0 && inputDir.y === -1 ){
+        return;
+    }
+    inputDir.x = 0;
+    inputDir.y = 1;
+}
+function controlleft(){
+    if(snakeArr.length > 1 && inputDir.x === 1 && inputDir.y === 0 ){
+        return;
+    }
+    inputDir.x = -1;
+    inputDir.y = 0;
+}
+function controlright(){
+    if(snakeArr.length > 1 && inputDir.x === -1 && inputDir.y === 0 ){
+        return;
+    }
+    inputDir.x = 1;
+    inputDir.y = 0;
+}
+
+// Game Functions
 function main(ctime) {
     window.requestAnimationFrame(main);
     if((ctime - lastPaintTime)/1000 < 1/speed){
@@ -32,7 +79,6 @@ function isCollide(snakeArr){
     }
     return false;
 }
-
 function gameEngine(){
     if(isCollide(snakeArr)){
         gameOverSound.play();
@@ -49,11 +95,14 @@ function gameEngine(){
     if( snakeArr[0].x === food.x && snakeArr[0].y === food.y){
         foodSound.play();
         snakeArr.unshift( { x: snakeArr[0].x + inputDir.x , y: snakeArr[0].y + inputDir.y});
-        let a = 2;
-        let b = 15;
         food = {x: Math.round(a + (b-a)* Math.random()), y: Math.round(a + (b-a)* Math.random())}
         score += 1;
         document.getElementById("score").innerHTML = score;
+        if(score > highScore){
+            highScore = score;
+            document.getElementById("highscore").innerHTML = score;
+        }
+
     } 
 
     // move snake
@@ -134,4 +183,4 @@ window.addEventListener('keydown',e => {
         default:
             break;
     }
-})
+});

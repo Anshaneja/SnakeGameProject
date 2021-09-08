@@ -9,10 +9,36 @@
 </head>
 <body>
     <script src="./js/index.js"></script>
-    <div class="score__container">
-        <h1 id="score__text">Score:</h1>
-        <h1 id="score">0</h1>
+    <div class="main__container">
+        <div class="instructions"></div>
+        <div id="board"></div>
+        <div class="scorebox">
+            <div class="score__container" id="scorebox__item1">
+                <h1 class="score__text">Score:</h1>
+                <h1 id="score">0</h1>
+            </div>
+            <div class="score__container">
+                <h1 class="score_text">High score:</h1>
+                <h1 id="highscore">0</h1>
+            </div>
+            <div class="button__container">
+                <button class="button" onclick="easy()">Easy</button>
+                <button class="button" onclick="medium()">Medium</button>
+                <button class="button" onclick="hard()">Hard</button>
+            </div>
+            <div class="controls__container">
+                <div class="controls__firstrow">
+                    <button id="control__up" onclick="controlup()" class="button__control">Up</button>
+                </div>
+                <div class="controls__secondrow">
+                    <button id="control__left"onclick="controlleft()" class="button__control">Left</button>
+                    <button id="control__right"onclick="controlright()" class="button__control">Right</button>
+                </div>
+                <div class="controls__thirdrow">
+                    <button id="control__down"onclick="controldown()" class="button__control">Down</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="board"></div>
 </body>
 </html>
